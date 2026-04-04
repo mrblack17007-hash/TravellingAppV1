@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TravellingApp - Situation Input</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Plus+Jakarta+Sans:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#c4d8e0",
+                        "on-tertiary-container": "#004466",
+                        "outline-variant": "#acb3b7",
+                        "on-secondary-container": "#42545c",
+                        "error": "#a83836",
+                        "surface-container": "#eaeff2",
+                        "surface-variant": "#dce4e8",
+                        "inverse-on-surface": "#9a9d9f",
+                        "surface-dim": "#d4dbdf",
+                        "secondary-dim": "#44565d",
+                        "on-surface": "#2c3437",
+                        "inverse-primary": "#4b8eff",
+                        "primary": "#005bc2",
+                        "secondary": "#4f6269",
+                        "on-primary-container": "#000000",
+                        "on-primary-fixed": "#ffffff",
+                        "on-error-container": "#6e0a12",
+                        "error-container": "#fa746f",
+                        "on-background": "#2c3437",
+                        "error-dim": "#67040d",
+                        "tertiary-fixed-dim": "#82bfee",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary": "#f6f9ff",
+                        "on-surface-variant": "#596064",
+                        "on-tertiary-fixed-variant": "#004e74",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#90cdfd",
+                        "primary-fixed": "#007aff",
+                        "on-secondary-fixed": "#304249",
+                        "surface-tint": "#005bc2",
+                        "on-error": "#fff7f6",
+                        "surface": "#f7f9fb",
+                        "primary-dim": "#0050ab",
+                        "inverse-surface": "#0b0f10",
+                        "on-primary-fixed-variant": "#f8f8ff",
+                        "primary-fixed-dim": "#006ee6",
+                        "tertiary-dim": "#035882",
+                        "on-primary": "#f9f8ff",
+                        "on-tertiary-fixed": "#002f49",
+                        "on-secondary": "#f1faff",
+                        "tertiary": "#1d648f",
+                        "on-secondary-fixed-variant": "#4c5e66",
+                        "tertiary-fixed": "#90cdfd",
+                        "surface-container-high": "#e3e9ed",
+                        "surface-container-low": "#f0f4f7",
+                        "secondary-fixed": "#d2e6ef",
+                        "secondary-container": "#d2e6ef",
+                        "surface-container-highest": "#dce4e8",
+                        "outline": "#747c80",
+                        "primary-container": "#007aff",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #005bc2 0%, #007aff 100%);
+        }
+        .cloud-shadow {
+            box-shadow: 0 12px 32px rgba(0, 91, 194, 0.08);
+        }
+        .aero-logo-text {
+            background: linear-gradient(to bottom right, #005bc2 20%, #004e74 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.05em;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/70 backdrop-blur-xl flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-blue-600">menu</span>
+</button>
+</div>
+<div class="font-['Space_Grotesk'] font-medium aero-logo-text text-xl">TravellingApp</div>
+<div class="w-10"></div> <!-- Spacer for center alignment -->
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-12">
+<h1 class="font-headline text-5xl font-bold tracking-tight text-on-surface leading-tight mb-4">
+                What's your <span class="text-primary italic">situation?</span>
+</h1>
+<p class="text-on-surface-variant font-body text-lg max-w-md">
+                Tell us a bit about your window of opportunity. We'll handle the logistics.
+            </p>
+</section>
+<!-- Input Groups -->
+<div class="space-y-10">
+<!-- Time Available -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">schedule</span>
+<h2 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface-variant">Time Available</h2>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center justify-center py-6 px-4 bg-surface-container-lowest rounded-lg border-2 border-transparent hover:border-primary-container transition-all active:scale-95 cloud-shadow">
+<span class="text-xl font-headline font-bold">2 hours</span>
+<span class="text-[10px] text-on-surface-variant font-medium mt-1 uppercase tracking-tighter">Quick Burst</span>
+</button>
+<button class="flex flex-col items-center justify-center py-6 px-4 bg-surface-container-lowest rounded-lg border-2 border-primary transition-all active:scale-95 cloud-shadow relative">
+<div class="absolute -top-2 right-2 bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full font-bold">POPULAR</div>
+<span class="text-xl font-headline font-bold text-primary">4 hours</span>
+<span class="text-[10px] text-primary-dim font-medium mt-1 uppercase tracking-tighter">Half Day</span>
+</button>
+<button class="flex flex-col items-center justify-center py-6 px-4 bg-surface-container-lowest rounded-lg border-2 border-transparent hover:border-primary-container transition-all active:scale-95 cloud-shadow">
+<span class="text-xl font-headline font-bold">6+ hours</span>
+<span class="text-[10px] text-on-surface-variant font-medium mt-1 uppercase tracking-tighter">Full Immersive</span>
+</button>
+</div>
+</section>
+<!-- Budget -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">payments</span>
+<h2 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface-variant">Budget</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<button class="flex items-center justify-between sm:flex-col sm:justify-center p-5 bg-surface-container-lowest rounded-lg border-2 border-transparent hover:border-primary-container transition-all active:scale-95 cloud-shadow">
+<span class="text-xl font-headline font-bold">₹500</span>
+<span class="text-xs text-on-surface-variant font-medium sm:mt-1">Budget Friendly</span>
+</button>
+<button class="flex items-center justify-between sm:flex-col sm:justify-center p-5 bg-surface-container-lowest rounded-lg border-2 border-transparent hover:border-primary-container transition-all active:scale-95 cloud-shadow">
+<span class="text-xl font-headline font-bold">₹1000</span>
+<span class="text-xs text-on-surface-variant font-medium sm:mt-1">Balanced</span>
+</button>
+<button class="flex items-center justify-between sm:flex-col sm:justify-center p-5 bg-surface-container-lowest rounded-lg border-2 border-transparent hover:border-primary-container transition-all active:scale-95 cloud-shadow">
+<span class="text-xl font-headline font-bold">₹2000+</span>
+<span class="text-xs text-on-surface-variant font-medium sm:mt-1">Premium</span>
+</button>
+</div>
+</section>
+<!-- Mood -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">auto_awesome</span>
+<h2 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface-variant">Mood</h2>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="flex items-center gap-3 px-6 py-4 bg-surface-container-low rounded-full hover:bg-surface-container-high transition-colors active:scale-95 group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">spa</span>
+<span class="font-headline font-bold">Relax</span>
+</button>
+<button class="flex items-center gap-3 px-6 py-4 bg-primary-container/10 rounded-full border-2 border-primary transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-headline font-bold text-primary">Explore</span>
+</button>
+<button class="flex items-center gap-3 px-6 py-4 bg-surface-container-low rounded-full hover:bg-surface-container-high transition-colors active:scale-95 group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">timer</span>
+<span class="font-headline font-bold">Kill Time</span>
+</button>
+</div>
+</section>
+</div>
+<!-- Visual Anchor (Asymmetric Image Placement) -->
+<div class="mt-16 relative h-48 w-full overflow-hidden rounded-xl cloud-shadow">
+<img alt="Travel Map and Camera" class="w-full h-full object-cover" data-alt="top-down artistic view of a vintage map, camera, and travel accessories on a white wooden surface with soft natural daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK76767LaWbkLlTEeWzRP-H8VsmnlkzmQs0LHKCc7bVSRo7Jf-7vmWjcVzVA1YW2TSBm2M9cYLtDQAngiPdQ97S2vPv7SYSm0UePjsGCe_flOsgSCN7iYQ2ZUltcm0iEC4cTUaUOGVHGfeoratFJ5hDaPT9LR7FvvSg02Ce3bg8WfV1bLdZ7R7b9b0JxddglmIgSNS42hYPJSLoAaCXkESwxYSiuH4IPM0o80bV5cJrbJGTcMRlKzy50zO40UxOaKkhQmDv0hNnIo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<p class="text-white font-headline text-lg font-bold">Adventure awaits.</p>
+<p class="text-white/80 text-xs">Curated just for your current vibe.</p>
+</div>
+</div>
+</main>
+<!-- Fixed Bottom CTA -->
+<div class="fixed bottom-0 left-0 right-0 p-6 bg-surface/80 backdrop-blur-md z-40">
+<div class="max-w-2xl mx-auto">
+<button class="w-full signature-gradient text-on-primary-fixed py-5 px-8 rounded-xl font-headline font-bold text-lg flex items-center justify-center gap-3 active:scale-95 transition-transform cloud-shadow">
+                Get My Plan
+                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

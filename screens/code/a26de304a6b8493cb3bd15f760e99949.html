@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Decision Screen - TravellingApp</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#c4d8e0",
+                    "on-tertiary-container": "#004466",
+                    "outline-variant": "#acb3b7",
+                    "on-secondary-container": "#42545c",
+                    "error": "#a83836",
+                    "surface-container": "#eaeff2",
+                    "surface-variant": "#dce4e8",
+                    "inverse-on-surface": "#9a9d9f",
+                    "surface-dim": "#d4dbdf",
+                    "secondary-dim": "#44565d",
+                    "on-surface": "#2c3437",
+                    "inverse-primary": "#4b8eff",
+                    "primary": "#005bc2",
+                    "secondary": "#4f6269",
+                    "on-primary-container": "#000000",
+                    "on-primary-fixed": "#ffffff",
+                    "on-error-container": "#6e0a12",
+                    "error-container": "#fa746f",
+                    "on-background": "#2c3437",
+                    "error-dim": "#67040d",
+                    "tertiary-fixed-dim": "#82bfee",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary": "#f6f9ff",
+                    "on-surface-variant": "#596064",
+                    "on-tertiary-fixed-variant": "#004e74",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#90cdfd",
+                    "primary-fixed": "#007aff",
+                    "on-secondary-fixed": "#304249",
+                    "surface-tint": "#005bc2",
+                    "on-error": "#fff7f6",
+                    "surface": "#f7f9fb",
+                    "primary-dim": "#0050ab",
+                    "inverse-surface": "#0b0f10",
+                    "on-primary-fixed-variant": "#f8f8ff",
+                    "primary-fixed-dim": "#006ee6",
+                    "tertiary-dim": "#035882",
+                    "on-primary": "#f9f8ff",
+                    "on-tertiary-fixed": "#002f49",
+                    "on-secondary": "#f1faff",
+                    "tertiary": "#1d648f",
+                    "on-secondary-fixed-variant": "#4c5e66",
+                    "tertiary-fixed": "#90cdfd",
+                    "surface-container-high": "#e3e9ed",
+                    "surface-container-low": "#f0f4f7",
+                    "secondary-fixed": "#d2e6ef",
+                    "secondary-container": "#d2e6ef",
+                    "surface-container-highest": "#dce4e8",
+                    "outline": "#747c80",
+                    "primary-container": "#007aff",
+                    "background": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+      .cloud-shadow {
+        box-shadow: 0 12px 32px rgba(0, 91, 194, 0.08);
+      }
+      .signature-gradient {
+        background: linear-gradient(135deg, #005bc2 0%, #007aff 100%);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen">
+<!-- TopAppBar (Supressed Nav version) -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/70 backdrop-blur-xl flex items-center justify-between px-6 h-16">
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-blue-600">arrow_back</span>
+</button>
+<h1 class="font-headline font-bold tracking-tight text-blue-600 text-xl">TravellingApp</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-500">more_vert</span>
+</div>
+</header>
+<main class="pt-24 pb-12 px-6 max-w-2xl mx-auto">
+<!-- Editorial Header Section -->
+<section class="mb-8">
+<span class="text-primary font-bold tracking-widest text-[0.65rem] uppercase">Top Recommendation</span>
+<h2 class="font-headline text-4xl font-extrabold tracking-tighter mt-1 mb-2 leading-tight">Your perfect escape.</h2>
+<p class="text-on-surface-variant text-sm max-w-[80%]">Based on current weather and your budget preferences.</p>
+</section>
+<!-- Main Recommendation Card (Bento/Editorial Style) -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden cloud-shadow relative">
+<!-- Hero Image with subtle inner glow via container -->
+<div class="relative h-[397px] w-full overflow-hidden">
+<img alt="Phoenix MarketCity" class="w-full h-full object-cover" data-alt="Modern high-end shopping mall interior with expansive glass ceilings, architectural curves, and bright luxury storefronts in soft daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEiQxITptJ1o4aLQ5WG5SnVzNAAEx8fSRiGC4VT14biMW4Ap3Z-vQ8AAi-rFr_3_kytS8mhTZzhU9c6QoxDzIrUh0J1gTtwVPDx4KqVWE4wsgcc-2ALfBguS6kSTE-pNzNgJ2YVGZf7ewu9paY2pB_zdMDmsdj9h8XcDaKSTsZ4j6qgAaX5F_M8sAW_Gag5GMZ76w76Z_BZNb6uy568Ey4C-HIF72_ovoZT8N1v7v_rU5E9VmKByxo0kNftn-OgmAavVG0p3eZ95k"/>
+<!-- Image Overlay for text legibility -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6 text-white">
+<h3 class="font-headline text-3xl font-bold tracking-tight">Phoenix MarketCity</h3>
+<div class="flex items-center gap-2 mt-1 opacity-90">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="text-xs font-medium">Viman Nagar, Pune</span>
+</div>
+</div>
+</div>
+<!-- Content Area -->
+<div class="p-8 space-y-8">
+<!-- Explanation -->
+<div class="bg-surface-container-low p-6 rounded-lg">
+<p class="text-on-surface leading-relaxed font-medium">
+                        "Best choice for a hot afternoon. Comfortable, budget-friendly, and safe."
+                    </p>
+</div>
+<!-- Key Info Bento Grid -->
+<div class="grid grid-cols-3 gap-4">
+<div class="flex flex-col items-center text-center p-4 bg-surface-container-lowest border border-outline-variant/15 rounded-lg">
+<span class="material-symbols-outlined text-primary mb-2">schedule</span>
+<span class="text-[0.65rem] font-bold text-on-surface-variant uppercase tracking-tighter">Travel</span>
+<span class="text-sm font-bold text-on-surface">35 mins</span>
+</div>
+<div class="flex flex-col items-center text-center p-4 bg-surface-container-lowest border border-outline-variant/15 rounded-lg">
+<span class="material-symbols-outlined text-primary mb-2">payments</span>
+<span class="text-[0.65rem] font-bold text-on-surface-variant uppercase tracking-tighter">Cost</span>
+<span class="text-sm font-bold text-on-surface">₹27–₹80</span>
+</div>
+<div class="flex flex-col items-center text-center p-4 bg-surface-container-lowest border border-outline-variant/15 rounded-lg">
+<span class="material-symbols-outlined text-primary mb-2">hourglass_empty</span>
+<span class="text-[0.65rem] font-bold text-on-surface-variant uppercase tracking-tighter">Duration</span>
+<span class="text-sm font-bold text-on-surface">2–3 hrs</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-4">
+<button class="signature-gradient text-on-primary-fixed font-bold py-5 rounded-xl cloud-shadow hover:opacity-90 scale-95 active:scale-90 transition-transform">
+                        View Plan
+                    </button>
+<button class="text-primary font-bold py-3 hover:opacity-70 transition-opacity text-sm">
+                        Try Another Option
+                    </button>
+</div>
+</div>
+</article>
+<!-- Secondary Info / Atmospheric Note -->
+<section class="mt-12 opacity-50 flex items-center justify-center gap-3">
+<div class="h-[1px] flex-1 bg-outline-variant/30"></div>
+<span class="text-[0.7rem] font-medium tracking-widest uppercase">Safe &amp; Curated</span>
+<div class="h-[1px] flex-1 bg-outline-variant/30"></div>
+</section>
+</main>
+<!-- Bottom Navigation Suppressed as per Task (Task-focused page) -->
+</body></html>

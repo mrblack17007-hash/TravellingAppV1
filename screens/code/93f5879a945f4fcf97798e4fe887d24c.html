@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f0f4f7",
+                    "surface-bright": "#f7f9fb",
+                    "on-primary-container": "#000000",
+                    "surface-tint": "#005bc2",
+                    "surface-dim": "#d4dbdf",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#d2e6ef",
+                    "on-surface": "#2c3437",
+                    "secondary-dim": "#44565d",
+                    "tertiary": "#1d648f",
+                    "surface-container": "#eaeff2",
+                    "on-tertiary-fixed-variant": "#004e74",
+                    "error-container": "#fa746f",
+                    "secondary": "#4f6269",
+                    "on-primary-fixed": "#ffffff",
+                    "on-surface-variant": "#596064",
+                    "on-secondary-fixed": "#304249",
+                    "inverse-surface": "#0b0f10",
+                    "on-secondary-fixed-variant": "#4c5e66",
+                    "inverse-primary": "#4b8eff",
+                    "primary-fixed-dim": "#006ee6",
+                    "on-secondary": "#f1faff",
+                    "primary-container": "#007aff",
+                    "background": "#f7f9fb",
+                    "on-background": "#2c3437",
+                    "tertiary-fixed": "#90cdfd",
+                    "primary-dim": "#0050ab",
+                    "on-primary": "#f9f8ff",
+                    "outline-variant": "#acb3b7",
+                    "inverse-on-surface": "#9a9d9f",
+                    "surface-container-high": "#e3e9ed",
+                    "on-tertiary-fixed": "#002f49",
+                    "surface-container-highest": "#dce4e8",
+                    "outline": "#747c80",
+                    "secondary-container": "#d2e6ef",
+                    "tertiary-container": "#90cdfd",
+                    "surface-variant": "#dce4e8",
+                    "secondary-fixed-dim": "#c4d8e0",
+                    "on-secondary-container": "#42545c",
+                    "error": "#a83836",
+                    "on-tertiary-container": "#004466",
+                    "primary-fixed": "#007aff",
+                    "primary": "#005bc2",
+                    "on-primary-fixed-variant": "#f8f8ff",
+                    "on-error": "#fff7f6",
+                    "error-dim": "#67040d",
+                    "tertiary-dim": "#035882",
+                    "tertiary-fixed-dim": "#82bfee",
+                    "on-tertiary": "#f6f9ff",
+                    "on-error-container": "#6e0a12"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface selection:bg-primary-container/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/70 dark:bg-slate-900/70 backdrop-blur-xl flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="text-blue-600 dark:text-blue-400 hover:opacity-80 transition-opacity scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Space_Grotesk'] font-bold tracking-tight text-xl text-on-surface">Settings</h1>
+</div>
+<div class="text-xl font-bold tracking-tighter text-blue-600 dark:text-blue-400">TravellingApp</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-12">
+<!-- Hero Section / Context -->
+<section class="space-y-2">
+<h2 class="text-4xl font-headline font-bold tracking-tight text-on-surface">Preferences</h2>
+<p class="text-on-surface-variant body-md max-w-xs">Tailor your travelling experience to your personal style.</p>
+</section>
+<!-- Profile Section -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+<h3 class="font-headline font-bold text-lg">Profile</h3>
+</div>
+<div class="space-y-4">
+<div class="relative group">
+<label class="absolute -top-2.5 left-4 px-1 bg-surface text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Name</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-full px-6 py-4 focus:ring-4 focus:ring-primary-fixed-dim/30 transition-all text-on-surface font-medium outline-none" type="text" value="Alex Sterling"/>
+</div>
+<div class="relative group">
+<label class="absolute -top-2.5 left-4 px-1 bg-surface text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Email</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-full px-6 py-4 focus:ring-4 focus:ring-primary-fixed-dim/30 transition-all text-on-surface font-medium outline-none" type="email" value="alex.sterling@voyage.com"/>
+</div>
+</div>
+</section>
+<!-- Notifications Section -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+<h3 class="font-headline font-bold text-lg">Notifications</h3>
+</div>
+<div class="bg-surface-container-low rounded-lg p-2 space-y-1">
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-full">
+<span class="font-medium">Push Notifications</span>
+<button class="w-12 h-6 bg-primary rounded-full relative transition-colors">
+<span class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></span>
+</button>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-full">
+<span class="font-medium">Email Updates</span>
+<button class="w-12 h-6 bg-surface-dim rounded-full relative transition-colors">
+<span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full"></span>
+</button>
+</div>
+</div>
+</section>
+<!-- App Preferences -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="settings_suggest">settings_suggest</span>
+<h3 class="font-headline font-bold text-lg">App Preferences</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-lg space-y-4">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Language</label>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-lg">English (US)</span>
+<span class="material-symbols-outlined text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg space-y-4">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Currency</label>
+<div class="flex items-center justify-between">
+<span class="font-semibold text-lg">INR (₹)</span>
+<span class="material-symbols-outlined text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Account Section -->
+<section class="space-y-6 pb-12">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="shield">shield</span>
+<h3 class="font-headline font-bold text-lg">Account</h3>
+</div>
+<div class="space-y-3">
+<button class="w-full flex items-center justify-between p-5 bg-surface-container-lowest rounded-full hover:bg-surface-container transition-colors group">
+<span class="font-semibold text-on-surface">Sign Out</span>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform" data-icon="logout">logout</span>
+</button>
+<button class="w-full flex items-center justify-between p-5 bg-error-container/10 border border-error-container/20 rounded-full hover:bg-error-container/20 transition-colors group">
+<span class="font-semibold text-error">Delete Account</span>
+<span class="material-symbols-outlined text-error group-hover:scale-110 transition-transform" data-icon="delete_forever">delete_forever</span>
+</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Suppressed for focused Settings view as per Contextual Suppression rule, but included for structure if needed as a task-focused sub-page should hide global nav) -->
+<!-- In this case, we prioritize the focused journey and exclude the navigation shell as per "Shell Visibility & Relevance" rule -->
+<footer class="fixed bottom-0 w-full p-6 pointer-events-none">
+<div class="max-w-md mx-auto flex justify-center">
+<div class="bg-surface-container-lowest/80 backdrop-blur-xl px-8 py-4 rounded-full shadow-[0_12px_32px_rgba(0,91,194,0.08)] pointer-events-auto">
+<p class="text-[10px] text-center font-bold uppercase tracking-[0.2em] text-outline-variant">Version 2.4.0 • Aero Ether</p>
+</div>
+</div>
+</footer>
+</body></html>
