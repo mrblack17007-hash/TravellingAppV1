@@ -1,6 +1,6 @@
 import { Place, UserInput, RecommendationResult, TravelPlan } from './models';
 import { filterPlaces } from './filters';
-import { calculateFitScore, calculateComfortScore, calculateExperienceScore, applyRejectionPenalties } from './scorers';
+import { calculateFitScore, calculateComfortScore, calculateExperienceScore, applyRejectionPenalties, getDynamicTravelTime, calculateProximityScore } from './scorers';
 
 // Type mapping to hold scored places
 interface ScoredPlace {
@@ -8,6 +8,7 @@ interface ScoredPlace {
   fitScore: number;
   comfortScore: number;
   expScore: number;
+  proximityScore: number;
   finalScore: number;
 }
 
@@ -15,31 +16,34 @@ interface ScoredPlace {
  * Generate a mockup travel plan matching the required JSON structure.
  * Standardizes actionable travel steps for MVP purposes.
  */
-function generateTravelPlan(place: Place): TravelPlan {
+function generateTravelPlan(place: Place, input: UserInput): TravelPlan {
   // Simplified transit cost based on distance mapping
-  const baseCost = place.avg_travel_time > 30 ? 50 : 20; 
+  const dynamicTravelTime = getDynamicTravelTime(place, input);
+  const baseCost = dynamicTravelTime > 30 ? 50 : 20; 
   
+  const walkDist = place.walking_distance_min || 0;
+  const sim = place.route_simplicity || 'direct';
   return {
-    total_travel_time: place.avg_travel_time,
+    total_travel_time: dynamicTravelTime,
     estimated_cost: baseCost,
     steps: [
       {
         instruction: "Walk to nearest transit stop",
-        duration: place.walking_distance_min > 0 ? Math.ceil(place.walking_distance_min / 2) : 2
+        duration: walkDist > 0 ? Math.ceil(walkDist / 2) : 2
       },
       {
-        instruction: place.route_simplicity === 'direct' ? "Take direct transport" : "Take transit with transfer",
-        duration: place.avg_travel_time - place.walking_distance_min
+        instruction: sim === 'direct' ? "Take direct transport" : "Take transit with transfer",
+        duration: Math.max(1, dynamicTravelTime - walkDist)
       },
       {
         instruction: `Walk to ${place.name}`,
-        duration: place.walking_distance_min > 0 ? Math.ceil(place.walking_distance_min / 2) : 2
+        duration: walkDist > 0 ? Math.ceil(walkDist / 2) : 2
       }
     ],
     backup_option: {
       mode: "Rapido",
       estimated_cost: baseCost * 2.5, // Auto/cabs cost roughly 2.5x standard transit
-      estimated_time: Math.ceil(place.avg_travel_time * 0.7) // Cabs are roughly 30% faster
+      estimated_time: Math.ceil(dynamicTravelTime * 0.7) // Cabs are roughly 30% faster
     }
   };
 }
@@ -67,9 +71,10 @@ export class DecisionEngine {
       const fitScore = calculateFitScore(place, input);
       const comfortScore = calculateComfortScore(place, input);
       const expScore = calculateExperienceScore(place, input);
+      const proximityScore = calculateProximityScore(place, input);
 
-      // Formula: (fit_score * 0.5) + (comfort_score * 0.3) + (experience_score * 0.2)
-      const baseFinalScore = (fitScore * 0.5) + (comfortScore * 0.3) + (expScore * 0.2);
+      // Formula: (fit_score * 0.4) + (comfort_score * 0.2) + (experience_score * 0.2) + (proximityScore * 0.2)
+      const baseFinalScore = (fitScore * 0.4) + (comfortScore * 0.2) + (expScore * 0.2) + (proximityScore * 0.2);
       
       // Apply penalties from previous rejections
       const finalScore = applyRejectionPenalties(baseFinalScore, place, input);
@@ -79,6 +84,7 @@ export class DecisionEngine {
         fitScore,
         comfortScore,
         expScore,
+        proximityScore,
         finalScore
       };
     });
@@ -100,7 +106,7 @@ export class DecisionEngine {
     return {
       best_place: bestPlace,
       reason: reasonText,
-      travel_plan: generateTravelPlan(bestPlace),
+      travel_plan: generateTravelPlan(bestPlace, input),
       backup_options: backupOptions
     };
   }

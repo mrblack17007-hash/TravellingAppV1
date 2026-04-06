@@ -1,25 +1,24 @@
 export type BudgetLevel = 'low' | 'medium' | 'high';
 export type RiskLevel = 'low' | 'medium' | 'high';
-export type WeatherCondition = 'hot' | 'normal' | 'rainy' | 'any';
 export type RouteSimplicity = 'direct' | '1 transfer' | '>1 transfer';
 export type Mood = 'relax' | 'explore' | 'kill time';
 
 export interface Place {
-  id: string; // Identifier for rejection logic tracking
+  id?: string; // Identifier for rejection logic tracking
   name: string;
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
   ideal_time_min: number; // in minutes
   ideal_time_max: number; // in minutes
   budget_level: BudgetLevel;
   tags: string[];
-  weather_suitability: WeatherCondition[];
-  avg_travel_time: number; // total travel time in minutes from user's location
+  weather_suitability: string[];
+  travel_time_estimate: number; // total travel time in minutes from user's location
   risk_level: RiskLevel;
   
   // Extended details (mocked for prototype) used in comfort scoring
-  route_simplicity: RouteSimplicity;
-  walking_distance_min: number;
+  route_simplicity?: RouteSimplicity;
+  walking_distance_min?: number;
 }
 
 export interface UserInput {
@@ -28,7 +27,7 @@ export interface UserInput {
   time_available: number; // in hours
   budget: number; // numeric budget (e.g. INR)
   mood: Mood;
-  weather: WeatherCondition;
+  weather: string;
   
   // Array of completely rejected place IDs to omit them entirely
   rejected_place_ids?: string[];

@@ -13,9 +13,10 @@ export function calculateFitScore(place: Place, input: UserInput): number {
   // 1. Matches time range -> +4
   // If the available time falls neatly around the ideal time (or at least covers the min)
   const availableMin = input.time_available * 60;
-  // It's already filtered to ensure availableMin >= (avg_travel*2 + ideal_time_min).
+  // It's already filtered to ensure availableMin >= (travel_time_estimate*2 + ideal_time_min).
   // Strongest match is if they have enough time to fulfill the max ideal experience
-  if (availableMin >= (place.avg_travel_time * 2) + place.ideal_time_max) {
+  const dynamicTravelTime = getDynamicTravelTime(place, input);
+  if (availableMin >= (dynamicTravelTime * 2) + place.ideal_time_max) {
     score += 4;
   } else {
     // Partial score if it only covers the minimum
@@ -47,11 +48,12 @@ export function calculateComfortScore(place: Place, input: UserInput): number {
   // <15 min -> +4
   // 15–30 min -> +3
   // 30–45 min -> +2
-  if (place.avg_travel_time < 15) {
+  const dynamicTravelTime = getDynamicTravelTime(place, input);
+  if (dynamicTravelTime < 15) {
     score += 4;
-  } else if (place.avg_travel_time <= 30) {
+  } else if (dynamicTravelTime <= 30) {
     score += 3;
-  } else if (place.avg_travel_time <= 45) {
+  } else if (dynamicTravelTime <= 45) {
     score += 2;
   }
 
@@ -59,9 +61,10 @@ export function calculateComfortScore(place: Place, input: UserInput): number {
   // Direct -> +3
   // 1 transfer -> +2
   // >1 -> +1
-  if (place.route_simplicity === 'direct') {
+  const sim = place.route_simplicity || 'direct'; // Default to direct if unknown
+  if (sim === 'direct') {
     score += 3;
-  } else if (place.route_simplicity === '1 transfer') {
+  } else if (sim === '1 transfer') {
     score += 2;
   } else {
     score += 1;
@@ -70,13 +73,50 @@ export function calculateComfortScore(place: Place, input: UserInput): number {
   // 3. Walking distance
   // <5 min -> +3
   // else -> +1
-  if (place.walking_distance_min < 5) {
+  const walkDist = place.walking_distance_min || 0; // Default to minimal
+  if (walkDist < 5) {
     score += 3;
   } else {
     score += 1;
   }
 
   return Math.min(score, 10);
+}
+
+// Distance Calculation (Haversine formula in km)
+export function getDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371; // km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+// Distance to travel time generic heuristic (roughly 7 mins per km in a city)
+export function getDynamicTravelTime(place: Place, input: UserInput): number {
+  if (!place.latitude || !place.longitude || !input.latitude || !input.longitude) {
+    return place.travel_time_estimate; // Fallback to static
+  }
+  const dist = getDistance(input.latitude, input.longitude, place.latitude, place.longitude);
+  return Math.ceil(dist * 7); // minutes
+}
+
+export function calculateProximityScore(place: Place, input: UserInput): number {
+  if (!place.latitude || !place.longitude || !input.latitude || !input.longitude) {
+    return 0; // No score
+  }
+  const dist = getDistance(input.latitude, input.longitude, place.latitude, place.longitude);
+  if (dist >= 1.0 && dist <= 2.0) {
+    return 5; // Perfect 1-2 km proximity
+  } else if (dist < 1.0) {
+    return 3; // Very close, but maybe less of a "journey", still good
+  } else if (dist <= 5.0) {
+    return 1; // within 5km
+  }
+  return 0;
 }
 
 const MOOD_TAG_MAPPING: Record<string, string[]> = {
@@ -129,7 +169,7 @@ export function applyRejectionPenalties(baseFinalScore: number, place: Place, in
     }
     
     // If rejected for "Too far", penalize places with similarly long travel times
-    if (rejection.reason === 'Too far' && place.avg_travel_time >= 30) {
+    if (rejection.reason === 'Too far' && getDynamicTravelTime(place, input) >= 30) {
       penalty += 1.5;
     }
 

@@ -1,51 +1,492 @@
 import { Place, UserInput } from './engine/models';
 import { DecisionEngine } from './engine/index';
 
-const mockPlaces: Place[] = [
+const chennaiPlaces: Place[] = [
   {
-    id: "p1",
-    name: "Marina Beach",
-    latitude: 13.0500,
-    longitude: 80.2824,
-    ideal_time_min: 60,
-    ideal_time_max: 180,
-    budget_level: "low",
-    tags: ["beach", "relax", "nature"],
-    weather_suitability: ["hot", "normal"],
-    avg_travel_time: 25,
-    risk_level: "low",
-    route_simplicity: "1 transfer",
-    walking_distance_min: 10
+    "name": "Kapaleeshwarar Temple",
+    "ideal_time_min": 45,
+    "ideal_time_max": 90,
+    "budget_level": "low",
+    "weather_suitability": [
+      "cool",
+      "evening"
+    ],
+    "travel_time_estimate": 10,
+    "risk_level": "low",
+    "tags": [
+      "heritage",
+      "spiritual",
+      "architecture"
+    ],
+    "latitude": 13.0337,
+    "longitude": 80.2699
   },
   {
-    id: "p2",
-    name: "Express Avenue Mall",
-    latitude: 13.0587,
-    longitude: 80.2641,
-    ideal_time_min: 120,
-    ideal_time_max: 240,
-    budget_level: "high",
-    tags: ["mall", "movie", "cafe"],
-    weather_suitability: ["any"],
-    avg_travel_time: 15,
-    risk_level: "low",
-    route_simplicity: "direct",
-    walking_distance_min: 3
+    "name": "Elliot\u2019s Beach (Besant Nagar)",
+    "ideal_time_min": 60,
+    "ideal_time_max": 180,
+    "budget_level": "low",
+    "weather_suitability": [
+      "evening",
+      "windy"
+    ],
+    "travel_time_estimate": 20,
+    "risk_level": "low",
+    "tags": [
+      "beach",
+      "food",
+      "walking"
+    ],
+    "latitude": 12.9995,
+    "longitude": 80.2724
   },
   {
-    id: "p3",
-    name: "DakshinaChitra Museum",
-    latitude: 12.8340,
-    longitude: 80.2392,
-    ideal_time_min: 150,
-    ideal_time_max: 300,
-    budget_level: "medium",
-    tags: ["museum", "cultural", "explore"],
-    weather_suitability: ["normal"],
-    avg_travel_time: 50,
-    risk_level: "low",
-    route_simplicity: ">1 transfer",
-    walking_distance_min: 15
+    "name": "Government Museum (Egmore)",
+    "ideal_time_min": 120,
+    "ideal_time_max": 300,
+    "budget_level": "low",
+    "weather_suitability": [
+      "hot",
+      "any"
+    ],
+    "travel_time_estimate": 5,
+    "risk_level": "low",
+    "tags": [
+      "history",
+      "art",
+      "educational"
+    ],
+    "latitude": 13.0711,
+    "longitude": 80.2569
+  },
+  {
+    "name": "Guindy National Park",
+    "ideal_time_min": 90,
+    "ideal_time_max": 180,
+    "budget_level": "low",
+    "weather_suitability": [
+      "morning",
+      "cool"
+    ],
+    "travel_time_estimate": 15,
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "wildlife",
+      "kids"
+    ],
+    "latitude": 13.0036,
+    "longitude": 80.2293
+  },
+  {
+    "name": "Pondy Bazaar Pedestrian Plaza",
+    "ideal_time_min": 60,
+    "ideal_time_max": 180,
+    "budget_level": "medium",
+    "weather_suitability": [
+      "evening",
+      "any"
+    ],
+    "travel_time_estimate": 10,
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "street_food",
+      "walking"
+    ],
+    "latitude": 13.0396,
+    "longitude": 80.237
+  },
+  {
+    "name": "San Thome Basilica",
+    "ideal_time_min": 30,
+    "ideal_time_max": 60,
+    "budget_level": "low",
+    "weather_suitability": [
+      "any"
+    ],
+    "travel_time_estimate": 15,
+    "risk_level": "low",
+    "tags": [
+      "church",
+      "history",
+      "architecture"
+    ],
+    "latitude": 13.0337,
+    "longitude": 80.2778
+  },
+  {
+    "name": "Semmozhi Poonga",
+    "ideal_time_min": 45,
+    "ideal_time_max": 120,
+    "budget_level": "low",
+    "weather_suitability": [
+      "evening",
+      "morning"
+    ],
+    "travel_time_estimate": 5,
+    "risk_level": "low",
+    "tags": [
+      "park",
+      "nature",
+      "relaxation"
+    ],
+    "latitude": 13.0519,
+    "longitude": 80.252
+  },
+  {
+    "name": "Anna Centenary Library",
+    "ideal_time_min": 60,
+    "ideal_time_max": 240,
+    "budget_level": "low",
+    "weather_suitability": [
+      "hot",
+      "any"
+    ],
+    "travel_time_estimate": 10,
+    "risk_level": "low",
+    "tags": [
+      "library",
+      "quiet",
+      "educational"
+    ],
+    "latitude": 13.0175,
+    "longitude": 80.2391
+  },
+  {
+    "name": "Little Mount Caves",
+    "ideal_time_min": 30,
+    "ideal_time_max": 60,
+    "budget_level": "low",
+    "weather_suitability": [
+      "any"
+    ],
+    "travel_time_estimate": 5,
+    "risk_level": "low",
+    "tags": [
+      "hidden_gem",
+      "history",
+      "spiritual"
+    ],
+    "latitude": 13.0166,
+    "longitude": 80.2269
+  },
+  {
+    "name": "St. Thomas Mount",
+    "ideal_time_min": 45,
+    "ideal_time_max": 90,
+    "budget_level": "low",
+    "weather_suitability": [
+      "evening",
+      "sunset"
+    ],
+    "travel_time_estimate": 15,
+    "risk_level": "low",
+    "tags": [
+      "viewpoint",
+      "hills",
+      "photography"
+    ],
+    "latitude": 13.0028,
+    "longitude": 80.1925
+  },
+  {
+    "name": "Vivekananda House",
+    "ideal_time_min": 45,
+    "ideal_time_max": 90,
+    "budget_level": "low",
+    "weather_suitability": [
+      "hot",
+      "any"
+    ],
+    "travel_time_estimate": 10,
+    "risk_level": "low",
+    "tags": [
+      "museum",
+      "history",
+      "coastal"
+    ],
+    "latitude": 13.0495,
+    "longitude": 80.2804
+  },
+  {
+    "name": "DakshinaChitra",
+    "ideal_time_min": 180,
+    "ideal_time_max": 360,
+    "budget_level": "medium",
+    "weather_suitability": [
+      "cloudy",
+      "cool"
+    ],
+    "travel_time_estimate": 60,
+    "risk_level": "low",
+    "tags": [
+      "culture",
+      "crafts",
+      "outdoors"
+    ],
+    "latitude": 12.834,
+    "longitude": 80.2392
+  },
+  {
+    "name": "Chennai Rail Museum",
+    "ideal_time_min": 60,
+    "ideal_time_max": 120,
+    "budget_level": "low",
+    "weather_suitability": [
+      "any"
+    ],
+    "travel_time_estimate": 25,
+    "risk_level": "low",
+    "tags": [
+      "trains",
+      "kids",
+      "educational"
+    ],
+    "latitude": 13.0984,
+    "longitude": 80.2079
+  },
+  {
+    "name": "Armenian Church",
+    "ideal_time_min": 20,
+    "ideal_time_max": 45,
+    "budget_level": "low",
+    "weather_suitability": [
+      "morning"
+    ],
+    "travel_time_estimate": 5,
+    "risk_level": "low",
+    "tags": [
+      "hidden_gem",
+      "peaceful",
+      "history"
+    ],
+    "latitude": 13.0898,
+    "longitude": 80.2847
+  },
+  {
+    "name": "Theosophical Society Gardens",
+    "ideal_time_min": 60,
+    "ideal_time_max": 120,
+    "budget_level": "low",
+    "weather_suitability": [
+      "afternoon",
+      "cool"
+    ],
+    "travel_time_estimate": 20,
+    "risk_level": "low",
+    "tags": [
+      "nature",
+      "quiet",
+      "heritage"
+    ],
+    "latitude": 13.0142,
+    "longitude": 80.2678
+  },
+  {
+    "name": "Express Avenue Mall",
+    "ideal_time_min": 120,
+    "ideal_time_max": 240,
+    "budget_level": "high",
+    "weather_suitability": [
+      "hot",
+      "any"
+    ],
+    "travel_time_estimate": 10,
+    "risk_level": "low",
+    "tags": [
+      "mall",
+      "gaming",
+      "shopping"
+    ],
+    "latitude": 13.0587,
+    "longitude": 80.2641
+  },
+  {
+    "name": "Birla Planetarium",
+    "ideal_time_min": 90,
+    "ideal_time_max": 150,
+    "budget_level": "low",
+    "weather_suitability": [
+      "hot",
+      "any"
+    ],
+    "travel_time_estimate": 15,
+    "risk_level": "low",
+    "tags": [
+      "science",
+      "kids",
+      "indoor"
+    ],
+    "latitude": 13.0076,
+    "longitude": 80.2405
+  },
+  {
+    "name": "Kalakshetra Foundation",
+    "ideal_time_min": 60,
+    "ideal_time_max": 120,
+    "budget_level": "medium",
+    "weather_suitability": [
+      "morning",
+      "cool"
+    ],
+    "travel_time_estimate": 25,
+    "risk_level": "low",
+    "tags": [
+      "arts",
+      "dance",
+      "tranquil"
+    ],
+    "latitude": 12.9866,
+    "longitude": 80.2652
+  },
+  {
+    "name": "Fort St. George Museum",
+    "ideal_time_min": 60,
+    "ideal_time_max": 120,
+    "budget_level": "low",
+    "weather_suitability": [
+      "any"
+    ],
+    "travel_time_estimate": 10,
+    "risk_level": "medium",
+    "tags": [
+      "colonial",
+      "history",
+      "military"
+    ],
+    "latitude": 13.0792,
+    "longitude": 80.2872
+  },
+  {
+    "name": "Connemara Public Library",
+    "ideal_time_min": 30,
+    "ideal_time_max": 90,
+    "budget_level": "low",
+    "weather_suitability": [
+      "any"
+    ],
+    "travel_time_estimate": 5,
+    "risk_level": "low",
+    "tags": [
+      "books",
+      "architecture",
+      "quiet"
+    ],
+    "latitude": 13.0694,
+    "longitude": 80.2588
+  },
+  {
+    "name": "Valluvar Kottam",
+    "ideal_time_min": 30,
+    "ideal_time_max": 60,
+    "budget_level": "low",
+    "weather_suitability": [
+      "evening"
+    ],
+    "travel_time_estimate": 15,
+    "risk_level": "low",
+    "tags": [
+      "monument",
+      "culture",
+      "landmark"
+    ],
+    "latitude": 13.052,
+    "longitude": 80.2415
+  },
+  {
+    "name": "Marina Lighthouse",
+    "ideal_time_min": 20,
+    "ideal_time_max": 45,
+    "budget_level": "low",
+    "weather_suitability": [
+      "evening",
+      "clear"
+    ],
+    "travel_time_estimate": 10,
+    "risk_level": "low",
+    "tags": [
+      "viewpoint",
+      "beach",
+      "photography"
+    ],
+    "latitude": 13.0416,
+    "longitude": 80.2818
+  },
+  {
+    "name": "Mylapore Food Walk (Lanes)",
+    "ideal_time_min": 60,
+    "ideal_time_max": 120,
+    "budget_level": "low",
+    "weather_suitability": [
+      "evening"
+    ],
+    "travel_time_estimate": 10,
+    "risk_level": "low",
+    "tags": [
+      "street_food",
+      "culture",
+      "vegetarian"
+    ],
+    "latitude": 13.0333,
+    "longitude": 80.2667
+  },
+  {
+    "name": "Nalli Silks (T. Nagar)",
+    "ideal_time_min": 45,
+    "ideal_time_max": 150,
+    "budget_level": "medium",
+    "weather_suitability": [
+      "any"
+    ],
+    "travel_time_estimate": 5,
+    "risk_level": "low",
+    "tags": [
+      "shopping",
+      "heritage",
+      "textiles"
+    ],
+    "latitude": 13.0381,
+    "longitude": 80.2355
+  },
+  {
+    "name": "Besant Nagar Broken Bridge",
+    "ideal_time_min": 30,
+    "ideal_time_max": 60,
+    "budget_level": "low",
+    "weather_suitability": [
+      "sunrise",
+      "sunset"
+    ],
+    "travel_time_estimate": 25,
+    "risk_level": "medium",
+    "tags": [
+      "hidden_gem",
+      "nature",
+      "scenic"
+    ],
+    "latitude": 13.0146,
+    "longitude": 80.2755
+  },
+  {
+    "name": "Phoenix Marketcity",
+    "ideal_time_min": 120,
+    "ideal_time_max": 300,
+    "budget_level": "high",
+    "weather_suitability": [
+      "hot",
+      "rainy",
+      "any"
+    ],
+    "travel_time_estimate": 15,
+    "risk_level": "low",
+    "tags": [
+      "mall",
+      "shopping",
+      "entertainment"
+    ],
+    "latitude": 12.9918,
+    "longitude": 80.2217
   }
 ];
 
@@ -61,7 +502,7 @@ const input1: UserInput = {
 };
 
 const engine = new DecisionEngine();
-const result1 = engine.getRecommendation(mockPlaces, input1);
+const result1 = engine.getRecommendation(chennaiPlaces, input1);
 console.log("Best Place:", result1.best_place?.name);
 console.log("Reason:", result1.reason);
 console.log("Travel Plan:", JSON.stringify(result1.travel_plan, null, 2));
@@ -72,11 +513,11 @@ console.log("Travel Plan:", JSON.stringify(result1.travel_plan, null, 2));
 console.log("\n--- Scenario 2: Rejected the Mall (Too expensive) ---");
 const input2: UserInput = {
   ...input1,
-  rejected_place_ids: ["p2"],
-  rejected_reasons: [{ place_id: "p2", reason: "Too expensive" }]
+  rejected_place_ids: ["Express Avenue Mall"],
+  rejected_reasons: [{ place_id: "Express Avenue Mall", reason: "Too expensive" }]
 };
 
-const result2 = engine.getRecommendation(mockPlaces, input2);
+const result2 = engine.getRecommendation(chennaiPlaces, input2);
 console.log("Best Place (after rejection):", result2.best_place?.name);
 console.log("Backup Options count:", result2.backup_options.length);
 
@@ -90,7 +531,7 @@ const input3: UserInput = {
   mood: "explore",
   weather: "normal"
 };
-const result3 = engine.getRecommendation(mockPlaces, input3);
+const result3 = engine.getRecommendation(chennaiPlaces, input3);
 console.log("Best Place:", result3.best_place?.name);
 // Here the Museum reqs 50*2 + 150 = 250 mins, but user only has 150 mins.
 // Thus museum must be hard filtered out.

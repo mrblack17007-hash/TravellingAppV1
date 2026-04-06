@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
-import { UserInput, Mood, WeatherCondition } from '../../engine/models';
+import * as Location from 'expo-location';
+import { UserInput, Mood } from '../../engine/models';
 import { DecisionEngine } from '../../engine/index';
 import { mockPlaces } from '../data';
 import { AeroEther } from '../theme/AeroEther';
@@ -22,12 +23,56 @@ export default function SituationInputScreen({ navigation, route }: Props) {
   const [timeAvailable, setTimeAvailable] = useState<string>(originalInput?.time_available.toString() || '3');
   const [budget, setBudget] = useState<string>(originalInput?.budget.toString() || '1500');
   const [mood, setMood] = useState<Mood>(originalInput?.mood || 'relax');
-  const [weather, setWeather] = useState<WeatherCondition>(originalInput?.weather || 'normal');
+  const [weather, setWeather] = useState<string>(originalInput?.weather || 'normal');
+
+  const [locationObj, setLocationObj] = useState<{lat: number, lon: number} | null>(null);
+  const [showManualLocation, setShowManualLocation] = useState(false);
+  const [manualLat, setManualLat] = useState<string>('');
+  const [manualLon, setManualLon] = useState<string>('');
+
+  React.useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setShowManualLocation(true);
+        Alert.alert("Location needed", "Please provide your coordinates manually since GPS was denied.");
+        return;
+      }
+
+      try {
+        let location = await Location.getCurrentPositionAsync({});
+        setLocationObj({
+          lat: location.coords.latitude,
+          lon: location.coords.longitude
+        });
+        setShowManualLocation(false);
+      } catch (e) {
+        setShowManualLocation(true);
+      }
+    })();
+  }, []);
 
   const handleFindPlace = () => {
+    let finalLat = locationObj?.lat;
+    let finalLon = locationObj?.lon;
+
+    if (showManualLocation) {
+      if (!manualLat || !manualLon) {
+        Alert.alert("Missing Location", "Please enter your latitude and longitude manually.");
+        return;
+      }
+      finalLat = parseFloat(manualLat);
+      finalLon = parseFloat(manualLon);
+    }
+
+    if (finalLat === undefined || finalLon === undefined || isNaN(finalLat) || isNaN(finalLon)) {
+      Alert.alert("Invalid Location", "Valid location coordinates are required.");
+      return;
+    }
+
     const input: UserInput = {
-      latitude: 13.0,
-      longitude: 80.2,
+      latitude: finalLat,
+      longitude: finalLon,
       time_available: parseFloat(timeAvailable) || 3,
       budget: parseFloat(budget) || 1500,
       mood,
@@ -96,13 +141,40 @@ export default function SituationInputScreen({ navigation, route }: Props) {
                 <TouchableOpacity 
                   key={w} 
                   style={[styles.pill, weather === w && styles.pillActive]}
-                  onPress={() => setWeather(w as WeatherCondition)}>
+                  onPress={() => setWeather(w)}>
                   <Text style={[styles.pillText, weather === w && styles.pillTextActive]}>{w}</Text>
                 </TouchableOpacity>
               ))}
             </View>
           </View>
         </SoftDestinationCard>
+        
+        {showManualLocation && (
+          <SoftDestinationCard>
+            <View style={styles.field}>
+              <Text style={styles.label}>Manual Latitude</Text>
+              <TextInput 
+                style={styles.input} 
+                keyboardType="numeric" 
+                value={manualLat} 
+                onChangeText={setManualLat} 
+                placeholder="e.g. 13.05"
+                placeholderTextColor={AeroEther.colors.onSurfaceVariant}
+              />
+            </View>
+            <View style={[styles.field, { marginBottom: 0 }]}>
+              <Text style={styles.label}>Manual Longitude</Text>
+              <TextInput 
+                style={styles.input} 
+                keyboardType="numeric" 
+                value={manualLon} 
+                onChangeText={setManualLon} 
+                placeholder="e.g. 80.25"
+                placeholderTextColor={AeroEther.colors.onSurfaceVariant}
+              />
+            </View>
+          </SoftDestinationCard>
+        )}
         
         {/* Floating space for navigation bar or spacing */}
         <View style={{ height: 100 }} />

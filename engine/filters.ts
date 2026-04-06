@@ -1,4 +1,5 @@
 import { Place, UserInput } from './models';
+import { getDynamicTravelTime } from './scorers';
 
 /**
  * Step 1: Hard Filtering
@@ -11,14 +12,15 @@ export function filterPlaces(places: Place[], input: UserInput): Place[] {
   const timeAvailableMin = input.time_available * 60;
 
   return places.filter(place => {
-    // Check if explicitly rejected by ID
-    if (input.rejected_place_ids?.includes(place.id)) {
+    // Check if explicitly rejected by ID (or name if id is undefined)
+    if (input.rejected_place_ids?.includes(place.id || place.name)) {
       return false;
     }
 
     // 1. Time Constraint Check
     // Buffer includes travel to place, travel back, and the minimum ideal time
-    const requiredTime = (place.avg_travel_time * 2) + place.ideal_time_min;
+    const dynamicTravelTime = getDynamicTravelTime(place, input);
+    const requiredTime = (dynamicTravelTime * 2) + place.ideal_time_min;
     if (requiredTime > timeAvailableMin) {
       return false;
     }
@@ -34,7 +36,7 @@ export function filterPlaces(places: Place[], input: UserInput): Place[] {
     // 3. Travel Time Threshold Check
     // Are too far (travel time > 40% of total time)
     const travelTimeThreshold = 0.40 * timeAvailableMin;
-    if (place.avg_travel_time > travelTimeThreshold) {
+    if (dynamicTravelTime > travelTimeThreshold) {
       return false;
     }
 
